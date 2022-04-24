@@ -4,7 +4,7 @@ const { connect } = pkg;
 
 const connectDB = async () => {
   try {
-    await connect("mongodb://localhost/figi");
+    await connect(`${process.env.MONGODB_URL}/${process.env.DB_NAME}`);
     console.log("Mongo db connected");
   } catch (err) {
     console.error(err);
