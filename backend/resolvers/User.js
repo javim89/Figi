@@ -17,11 +17,9 @@ const UserResolver = {
         if (!isCorrectPassword) {
           throw new Error("Invalid Credentials!password");
         }
-        console.log("lasd12")
         const token = jwt.sign({ id: user.id, email: user.email }, privateKey, {
           algorithm: "RS256",
         });
-        console.log("lasd")
         return {
           token,
           userId: user.id,

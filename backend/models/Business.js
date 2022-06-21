@@ -5,7 +5,7 @@ import { OrderSchema } from "./Order";
 
 const { Schema, model } = pkg;
 
-const BusinessSchema = new Schema({
+export const BusinessSchema = new Schema({
   profile: {
     type: ProfileSchema,
     required: false,

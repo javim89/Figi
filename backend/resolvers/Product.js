@@ -34,6 +34,9 @@ const ProductResolver = {
       return product;
     },
   },
+  // Product: {
+  //   type: (root) => `${root.name}, ${root.description}`,
+  // },
 };
 
 export default ProductResolver;

@@ -1,5 +1,7 @@
 import pkg from "mongoose";
 import bcrypt from "bcrypt";
+import { ProductSchema } from "./Product";
+import { BusinessSchema } from "./Business";
 
 const { Schema, model } = pkg;
 
@@ -15,6 +17,12 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  products: {
+    type: [ProductSchema],
+  },
+  bussines: {
+    type: BusinessSchema,
   },
 });
 
