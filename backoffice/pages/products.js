@@ -1,5 +1,12 @@
+import BussinessLayout from "../layouts/BussinessLayout";
+import withAuth from "../components/withAuth";
+
 const Products = () => {
-    return (<div>Products</div>)
+    return (
+        <BussinessLayout>
+            Prod
+        </BussinessLayout>)
 }
 
-export default Products;
+
+export default withAuth(Products);
