@@ -1,38 +1,116 @@
-import React, { useState } from "react";
-import { signIn, getCsrfToken } from 'next-auth/react';
+import React from 'react';
+import TextField from '@mui/material/TextField';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
+// import Link from '@mui/material/Link';
+// import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import AuthLayout from '../layouts/AuthLayout';
+import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { signIn } from 'next-auth/react';
 
-export default function SignIn({ csrfToken }) {
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
+const validationSchema = yup.object({
+  email: yup.string().required("Required"),
+  password: yup.string().required("Required")
+});
 
-    const onSubmitForm = async () => {
-        const res = await signIn('credentials', {
-            redirect: false,
-            username,
-            password,
-            callbackUrl: "/products",
-        });
-    }
+const Login = () => {
+  const { control, handleSubmit, formState: {isSubmitting} } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(validationSchema),
+  });
 
-    return (
-        <form>
-            <input
-                name="csrfToken"
-                type="hidden"
-                defaultValue={csrfToken}
+  const onSubmit = async (values) => {
+    await signIn("credentials", {
+      redirect: false,
+      username: values.email,
+      password: values.password,
+      callbackUrl: "/products",
+    });
+  };
+
+  return (
+    <AuthLayout title={"Ingresar"}>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+      {/* <Controller
+          name="csfrToken"
+          control={control}
+          hidden
+          render={({ field: { value }}) => (
+            <TextField
+              margin="normal"
+              hidden
+              value={value}
             />
-            <input name="username" onChange={(e) => setUsername(e.target.value)} />
-            <input name="password" onChange={(e) => setPassword(e.target.value)} />
-            <button onClick={onSubmitForm} type="button">Submit</button>
-        </form>
-    )
+          )}
+        /> */}
+        <Controller
+          name="email"
+          control={control}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Email Address"
+              onChange={onChange}
+              value={value}
+              error={!!error}
+              helperText={error ? error.message : null}
+            />
+          )}
+        />
+
+        <Controller
+          name="password"
+          control={control}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Password"
+              type="password"
+              onChange={onChange}
+              value={value}
+              error={!!error}
+              helperText={error ? error.message : null}
+            />
+          )}
+        />
+
+        {/* <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            /> */}
+        <LoadingButton
+          color="secondary"
+          loading={isSubmitting}
+          type="submit"
+          variant="contained"
+          fullWidth
+        >
+          Ingresar
+        </LoadingButton>
+        {/* <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid> */}
+      </Box>
+    </AuthLayout>
+  );
 }
 
-// This is the recommended way for Next.js 9.3 or newer
-export async function getServerSideProps(context) {
-    return {
-        props: {
-            csrfToken: await getCsrfToken(context),
-        },
-    };
-}
+export default Login;

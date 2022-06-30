@@ -9,7 +9,7 @@ import Link from 'next/link'
 
 export const mainListItems = (
     <React.Fragment>
-        <Link href="/" passHref>
+        {/* <Link href="/" passHref>
         <ListItemButton>
             <ListItemIcon>
                 <DashboardIcon />
@@ -24,7 +24,7 @@ export const mainListItems = (
                 </ListItemIcon>
                 <ListItemText primary="Orders" />
             </ListItemButton>
-        </Link>
+        </Link> */}
         <Link href="/products" passHref>
         <ListItemButton>
             <ListItemIcon>
