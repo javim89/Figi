@@ -46,16 +46,29 @@ export default NextAuth({
             variables: { username: credentials.username, password: credentials.password },
             errorPolicy: "all",
         });
-
         // If no error and we have user data, return it
         if (res.data) {
-          return res.data.login
+          return res.data.login;
         }
         // Return null if user data could not be retrieved
-        return null
+        // return null
       }
     })
   ],
+  callbacks: {
+    jwt: ({token, user}) => {
+      if(user) {
+        token.id = user.token
+      }
+      return token;
+    },
+    session: ({ session, token }) => {
+      if(token) {
+        session.id = token.id
+      }
+      return session;
+    }
+  },
   pages: {
     signIn: '/login',
   }

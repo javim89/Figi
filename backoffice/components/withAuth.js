@@ -1,4 +1,4 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import LogIn from "../pages/login";
 
 const withAuth = Component => {

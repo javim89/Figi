@@ -1,20 +1,19 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
-// import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import AuthLayout from '../layouts/AuthLayout';
+import React from "react";
+import { TextField , Box } from "@mui/material";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Checkbox from "@mui/material/Checkbox";
+// import Link from "@mui/material/Link";
+// import Grid from "@mui/material/Grid";
+import AuthLayout from "../layouts/AuthLayout";
 import { useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from '@hookform/resolvers/yup';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { signIn } from 'next-auth/react';
+import { object, string } from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { signIn } from "next-auth/react";
 
-const validationSchema = yup.object({
-  email: yup.string().required("Required"),
-  password: yup.string().required("Required")
+const validationSchema = object({
+  email: string().required("Required"),
+  password: string().required("Required")
 });
 
 const Login = () => {
@@ -38,18 +37,6 @@ const Login = () => {
   return (
     <AuthLayout title={"Ingresar"}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
-      {/* <Controller
-          name="csfrToken"
-          control={control}
-          hidden
-          render={({ field: { value }}) => (
-            <TextField
-              margin="normal"
-              hidden
-              value={value}
-            />
-          )}
-        /> */}
         <Controller
           name="email"
           control={control}
@@ -88,7 +75,6 @@ const Login = () => {
               label="Remember me"
             /> */}
         <LoadingButton
-          color="secondary"
           loading={isSubmitting}
           type="submit"
           variant="contained"
@@ -96,18 +82,6 @@ const Login = () => {
         >
           Ingresar
         </LoadingButton>
-        {/* <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid> */}
       </Box>
     </AuthLayout>
   );
