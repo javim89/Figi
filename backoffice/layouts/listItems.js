@@ -30,7 +30,7 @@ export const mainListItems = (
             <ListItemIcon>
                 <RestaurantIcon />
             </ListItemIcon>
-            <ListItemText primary="Products" />
+            <ListItemText primary="Productos" />
         </ListItemButton>
         </Link>
     </React.Fragment>

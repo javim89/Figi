@@ -43,10 +43,47 @@ const ProductForm = ({ setOpenDrawer }) => {
 				mutation CreateProduct($product: ProductInput) {
 	        createProduct(product: $product) {
 	            id
+							name
+							description
 	    }
 	}
 	`;
-	const [createProduct] = useMutation(CREATE_PRODUCT);
+
+	const GET_PRODUCTS = gql`
+query Query {
+	getAll {
+		name
+		description
+		id
+	}
+}`;
+
+	const [createProduct] = useMutation(CREATE_PRODUCT, {
+		refetchQueries: [
+			{ query: GET_PRODUCTS }, // DocumentNode object parsed with gql
+			'Query' // Query name
+		],
+		update(cache, { data: { createProduct } }) {
+			cache.modify({
+				fields: {
+					products(existingProducts = []) {
+						const newProductRef = cache.writeFragment({
+							data: createProduct,
+							fragment: gql`
+                fragment NewProdut on Produt {
+                  id
+									name
+									description
+                  type
+                }
+              `
+						});
+						return [...existingProducts, newProductRef];
+					}
+				}
+			});
+		}
+	});
 
 	const onSubmit = (values) => {
 		createProduct({ variables: { product: values } })
