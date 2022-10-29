@@ -16,9 +16,10 @@ const ProductResolver = {
     },
   },
   Mutation: {
-    create: async (_, args) => {
-      const { name, description } = args.product;
-      const newProduct = new Product({ name, description });
+    createProduct: async (_, args) => {
+      // const { name, description } = args.product;
+      // const newProduct = new Product({ name, description });
+      const newProduct = new Product(args.product);
       await newProduct.save();
       return newProduct;
     },

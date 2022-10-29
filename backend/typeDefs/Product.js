@@ -4,7 +4,16 @@ const ProductTypeDefs = gql`
     type Product {
         id: ID,
         name: String,
-        description: String,
+        description: String
+        category: [String],
+        price: Float,
+        isVegetarian: Boolean,
+        isVegan: Boolean,
+        nutricionInfo: Boolean,
+        fat: Int,
+        saturates: Int,
+        salt: Int,
+        sugars: Int
     }
     type Query {
         getAll: [Product],
@@ -13,9 +22,18 @@ const ProductTypeDefs = gql`
     input ProductInput {
         name: String,
         description: String
+        category: [String],
+        price: Float,
+        isVegetarian: Boolean,
+        isVegan: Boolean,
+        nutricionInfo: Boolean,
+        fat: Int,
+        saturates: Int,
+        salt: Int,
+        sugars: Int
     }
     type Mutation {
-        create(product: ProductInput): Product,
+        createProduct(product: ProductInput): Product,
         deleteProduct(id: ID): String,
         updateProduct(id: ID, product: ProductInput): Product
     }

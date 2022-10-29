@@ -18,7 +18,10 @@ export const BusinessSchema = new Schema({
     type: [OrderSchema],
     required: false,
   },
-  category: String,
+  category: {
+    type: String,
+    required: false,
+  },
 }, { timestamps: true });
 
 export default model("business", BusinessSchema);

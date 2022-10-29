@@ -8,8 +8,14 @@ export const ProfileSchema = new Schema({
     type: String,
     required: true,
   },
-  address: String,
-  image: ImageSchema,
+  address: {
+    type: String,
+    required: false,
+  },
+  image: {
+    type: ImageSchema,
+    required: false,
+  },
 });
 
 export default model("profile", ProfileSchema);
