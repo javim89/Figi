@@ -23,7 +23,7 @@ const BoxCard = ({ id, name, price, image, description }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card>
       <CardHeader
         action={(
           <>

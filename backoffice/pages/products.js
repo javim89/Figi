@@ -7,6 +7,7 @@ import { makeStyles } from '@mui/styles';
 import theme from "../src/theme";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import BoxCard from "../components/core/Product/BoxCard";
+import ListCard from "../components/core/Product/ListCard"
 
 const useStyles = makeStyles({
 	drawer: {
@@ -78,6 +79,19 @@ const Products = () => {
 					</Grid>
 				))
 				)}
+				{/* {!isLooadingProducts && products && products.getAll.length > 0 && (
+				products.getAll.map((product, index) => (
+					<Grid item xs={12} key={index}>
+						<ListCard
+							id={product.id}
+							name={product.name}
+							price={product.price}
+							description={product.description}
+							image={"https://picsum.photos/200"}
+						 />
+					</Grid>
+				))
+				)} */}
 				</Grid>
 			<SwipeableDrawer open={openDrawer} anchor={"right"} onClose={() => setOpenDrawer(false)}>
 				<Box component="div" className={classes.drawer}>
