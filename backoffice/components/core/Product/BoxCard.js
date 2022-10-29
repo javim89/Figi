@@ -52,7 +52,7 @@ const BoxCard = ({ id, name, price, image, description }) => {
         )
         }
         title={name}
-        subheader={price}
+        subheader={`$${price}`}
       />
       <CardMedia
         component="img"
