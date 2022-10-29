@@ -68,11 +68,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 function BussinessLayout({ children }) {
     const [open, setOpen] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [darkMode, setDarkMode] = React.useState(false);
     const isMenuOpen = Boolean(anchorEl);
 
     const handleMenuClose = () => {
         setAnchorEl(null);
-        // handleMobileMenuClose();
     };
     const toggleDrawer = () => {
         setOpen(!open);
@@ -98,6 +98,7 @@ function BussinessLayout({ children }) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
+            <MenuItem onClick={() => setDarkMode(!darkMode)}>Dark mode</MenuItem>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
             <MenuItem onClick={()=> signOut()}>Sign out</MenuItem>
